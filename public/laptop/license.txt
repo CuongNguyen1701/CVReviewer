@@ -1,0 +1,11 @@
+Model Information:
+* title:	Modern Slim Laptop
+* source:	https://sketchfab.com/3d-models/modern-slim-laptop-fbf172f8b14241feab581dcb1fbcd475
+* author:	Blaž Mraz (https://sketchfab.com/Mraz3D)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Modern Slim Laptop" (https://sketchfab.com/3d-models/modern-slim-laptop-fbf172f8b14241feab581dcb1fbcd475) by Blaž Mraz (https://sketchfab.com/Mraz3D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
