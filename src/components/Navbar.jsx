@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants";
@@ -9,7 +9,8 @@ const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
+  const [notHome, setNotHome] = useState(false);
+  const currentPath = useLocation().pathname;
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -33,41 +34,61 @@ const Navbar = () => {
         scrolled ? "bg-primary" : "bg-transparent"
       }`}
     >
-      <div className='w-full flex justify-between items-center max-w-7xl mx-auto select-none'>
+      <div className="w-full flex justify-between items-center max-w-7xl mx-auto select-none">
         <Link
-          to='/'
-          className='flex items-center gap-2'
+          to="/"
+          className="flex items-center gap-2"
           onClick={() => {
             setActive("");
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt='logo' className='w-9 h-9 object-contain' />
-          <p className='text-white text-[18px] font-bold cursor-pointer flex '>
+          <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
+          <p className="text-white text-[18px] font-bold cursor-pointer flex ">
             [Name] &nbsp;
-            <span className='sm:block hidden'> | HUST</span>
+            <span className="sm:block hidden"> | HUST</span>
           </p>
         </Link>
-
-        <ul className='list-none hidden sm:flex flex-row gap-10'>
+        <Link to="/login">
+          {currentPath !== "/login" && (
+            <button
+              className="flex flex-row w-fit h-auto green-pink-gradient px-8 py-2
+                      rounded-[10px] shadow-card select-none self-end
+                      hover:bg-gradient-to-b from-green-300 to-purple-400 hover:text-black"
+            >
+              Log in
+            </button>
+          )}
+        </Link>
+        <ul className="list-none hidden sm:flex flex-row gap-10">
           {navLinks.map((nav) => (
             <li
               key={nav.id}
               className={`${
                 active === nav.title ? "text-white" : "text-secondary"
               } hover:text-white text-[18px] font-medium cursor-pointer`}
-              onClick={() => setActive(nav.title)}
+              onClick={() => {
+                setActive(nav.title);
+                // if (currentPath !== "/") {
+                //   setNotHome(true);
+                // } else {
+                //   setNotHome(false);
+                // }
+              }}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              {currentPath !== "/" ? (
+                <Link to={`/#${nav.id}`}>{nav.title}</Link>
+              ) : (
+                <a href={`#${nav.id}`}>{nav.title}</a>
+              )}
             </li>
           ))}
         </ul>
-
-        <div className='sm:hidden flex flex-1 justify-end items-center'>
+        <div className="sm:hidden flex flex-1 justify-end items-center">
           <img
             src={toggle ? close : menu}
-            alt='menu'
-            className='w-[28px] h-[28px] object-contain'
+            alt="menu"
+            className="w-[28px] h-[28px] object-contain"
             onClick={() => setToggle(!toggle)}
           />
 
@@ -76,7 +97,7 @@ const Navbar = () => {
               !toggle ? "hidden" : "flex"
             } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
           >
-            <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
+            <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
               {navLinks.map((nav) => (
                 <li
                   key={nav.id}
@@ -88,7 +109,11 @@ const Navbar = () => {
                     setActive(nav.title);
                   }}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  {currentPath !== "/" ? (
+                    <Link to={`/#${nav.id}`}>{nav.title}</Link>
+                  ) : (
+                    <a href={`#${nav.id}`}>{nav.title}</a>
+                  )}
                 </li>
               ))}
             </ul>

@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
   Preload,
@@ -7,7 +7,7 @@ import {
   useAnimations,
 } from "@react-three/drei";
 
-import CanvasLoader from "../Loader";
+import CanvasLoader from "../MainPageComponents/Loader";
 const objectName = "robot";
 const MainObject = ({ isMobile }) => {
   const ref = useRef();

@@ -2,7 +2,7 @@ import React, { Suspense, useState, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
-import CanvasLoader from "../Loader";
+import CanvasLoader from "../MainPageComponents/Loader";
 
 const Gear = ({ loading }) => {
   const ref = useRef();
@@ -52,7 +52,7 @@ const GearCanvas = ({ loading }) => {
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           autoRotate
-          autoRotateSpeed={0.6}
+          autoRotateSpeed={0.4}
           enableZoom={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
