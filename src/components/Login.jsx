@@ -1,28 +1,39 @@
 import React from "react";
-const handleLogin = () => {
-  const clientId = "your_client_id_here"; // replace with your actual client ID
-  const redirectUri = "http://example.com/callback"; // replace with your actual redirect URI
-  const authorizationEndpoint = "https://backend.com/oauth2/authorize"; // replace with your actual authorization endpoint URL
-  const scope = "email"; // replace with any required scope(s)
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
-  // set up the authorization URL including query parameters
-  const authorizationUrl = `${authorizationEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-    redirectUri
-  )}&response_type=code&scope=${scope}`;
+const Login = ({ isLoggedIn, setIsLoggedIn }) => {
+  const handleLogin = async () => {
+    // const clientId = "your_client_id_here"; // replace with your actual client ID
+    // const redirectUri = "http://example.com/callback"; // replace with your actual redirect URI
+    // const authorizationEndpoint = "https://backend.com/oauth2/authorize"; // replace with your actual authorization endpoint URL
+    // const scope = "email"; // replace with any required scope(s)
 
-  // redirect the user to the authorization URL
-  window.location.href = "localhost:8000/auth/google";
-};
-const Login = () => {
+    // // set up the authorization URL including query parameters
+    // const authorizationUrl = `${authorizationEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+    //   redirectUri
+    // )}&response_type=code&scope=${scope}`;
+
+    // // redirect the user to the authorization URL
+    window.location.href = `${process.env.BACK_END_URL}auth/google`;
+    axios
+      .get("http://localhost:8000/test")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setIsLoggedIn(true);
+    alert("Logged in");
+  };
   return (
-    <div
-      className="w-screen h-screen bg-hero-pattern bg-cover bg-no-repeat bg-center 
-                   flex justify-center items-center"
-    >
+    <div className="flex items-center justify-center w-screen h-screen bg-center bg-no-repeat bg-cover bg-hero-pattern">
       <div
         className="flex flex-row w-fit h-auto green-pink-gradient p-[5px]
                       rounded-[10px] shadow-card select-none"
       >
+        {isLoggedIn && <Navigate to="/" />}
         <div
           className="bg-tertiary rounded-[10px] py-5 px-12  
                         flex justify-evenly items-center flex-col gap-3"
@@ -35,7 +46,7 @@ const Login = () => {
     </div>
   );
 };
-const GoogleButton = () => {
+const GoogleButton = ({ handleLogin }) => {
   return (
     <button
       type="button"
@@ -62,7 +73,7 @@ const GoogleButton = () => {
     </button>
   );
 };
-const FacebookButton = () => {
+const FacebookButton = ({ handleLogin }) => {
   return (
     <button
       type="button"

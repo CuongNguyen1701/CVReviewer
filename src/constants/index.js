@@ -66,8 +66,8 @@ export const navLinks = [
     pathname: "/",
   },
   {
-    id: "not",
-    title: "not",
+    id: "test",
+    title: "Test",
     pathname: "/",
   },
 ];
@@ -116,4 +116,4 @@ const technologies = [
   },
 ];
 
-export { members };
+export { members, technologies };

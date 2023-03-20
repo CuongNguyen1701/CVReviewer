@@ -43,7 +43,7 @@ const MemberCard = ({ index, name, image, role, description }) => {
                 scale: 1,
                 speed: 450,
               }}
-              className="bg-tertiary w-full rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col"
+              className="bg-tertiary w-full rounded-[20px] py-4 px-4 min-h-[280px] flex justify-evenly items-center flex-col"
             >
               <AnimatePresence initial={false}>
                 {isFlipping ? (
@@ -54,7 +54,7 @@ const MemberCard = ({ index, name, image, role, description }) => {
                     <img
                       src={image}
                       alt="member"
-                      className="w-40 h-40 object-contain"
+                      className="object-contain w-30 h-30"
                     />
 
                     <h3 className="text-white text-[14px] font-bold text-center">
@@ -91,13 +91,13 @@ const About = () => {
       </motion.div>
 
       <motion.p
-        variants={fadeIn("", "", 0.1, 1)}
+        variants={fadeIn("", "", 0, 0.5)}
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
         Our team has a vỉsion of
       </motion.p>
 
-      <div className="mt-20 flex flex-wrap gap-10 ">
+      <div className="flex flex-wrap gap-10 mt-20 ">
         {members.map((member, index) => (
           <MemberCard key={member.name} index={index} {...member} />
         ))}

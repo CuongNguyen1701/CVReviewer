@@ -5,7 +5,7 @@ import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { logo, menu, close } from "../assets";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -26,6 +26,9 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
   return (
     <nav
       className={`${
@@ -34,7 +37,7 @@ const Navbar = () => {
         scrolled ? "bg-primary" : "bg-transparent"
       }`}
     >
-      <div className="w-full flex justify-between items-center max-w-7xl mx-auto select-none">
+      <div className="flex items-center justify-between w-full mx-auto select-none max-w-7xl">
         <Link
           to="/"
           className="flex items-center gap-2"
@@ -43,24 +46,40 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
+          <img src={logo} alt="logo" className="object-contain w-9 h-9" />
           <p className="text-white text-[18px] font-bold cursor-pointer flex ">
             [Name] &nbsp;
-            <span className="sm:block hidden"> | HUST</span>
+            <span className="hidden sm:block"> | HUST</span>
           </p>
         </Link>
-        <Link to="/login">
-          {currentPath !== "/login" && (
-            <button
-              className="flex flex-row w-fit h-auto green-pink-gradient px-8 py-2
+        {isLoggedIn ? (
+          <>
+            Logged in
+            <Link to="/">
+              <button
+                className="flex flex-row w-fit h-auto green-pink-gradient px-8 py-2
+                      rounded-[10px] select-none self-end
+                      hover:bg-gradient-to-b from-green-300 to-purple-400 hover:text-black"
+                onClick={handleLogout}
+              >
+                Log out
+              </button>
+            </Link>
+          </>
+        ) : (
+          <Link to="/login">
+            {currentPath !== "/login" && (
+              <button
+                className="flex flex-row w-fit h-auto green-pink-gradient px-8 py-2
                       rounded-[10px] shadow-card select-none self-end
                       hover:bg-gradient-to-b from-green-300 to-purple-400 hover:text-black"
-            >
-              Log in
-            </button>
-          )}
-        </Link>
-        <ul className="list-none hidden sm:flex flex-row gap-10">
+              >
+                Log in
+              </button>
+            )}
+          </Link>
+        )}
+        <ul className="flex-row hidden gap-10 list-none sm:flex">
           {navLinks.map((nav) => (
             <li
               key={nav.id}
@@ -84,7 +103,7 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <div className="sm:hidden flex flex-1 justify-end items-center">
+        <div className="flex items-center justify-end flex-1 sm:hidden">
           <img
             src={toggle ? close : menu}
             alt="menu"
@@ -97,7 +116,7 @@ const Navbar = () => {
               !toggle ? "hidden" : "flex"
             } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
           >
-            <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
+            <ul className="flex flex-col items-start justify-end flex-1 gap-4 list-none">
               {navLinks.map((nav) => (
                 <li
                   key={nav.id}

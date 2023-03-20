@@ -47,9 +47,7 @@ const FileInput = () => {
         <div
           {...getRootProps()}
           htmlFor="dropzone-file"
-          className="my-12 flex flex-col gap-8 cursor-pointer text-black px-8 py-20
-                    rounded-xl border-2 border-dashed border-slate-500 bg-slate-100
-                     hover:bg-slate-400 hover:border-black hover:text-white text-center"
+          className="flex flex-col gap-8 px-8 py-20 my-12 text-center text-black border-2 border-dashed cursor-pointer rounded-xl border-slate-500 bg-slate-100 hover:bg-slate-400 hover:border-black hover:text-white"
         >
           DROPZONE
           <input

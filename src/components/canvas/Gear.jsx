@@ -28,7 +28,7 @@ const Gear = ({ loading }) => {
       <primitive
         ref={ref}
         object={Gear.scene}
-        scale={1 * (1 + loading * 0.2)}
+        scale={1 /* (1 + loading * 0.2)*/}
         rotation-z={Math.PI / 2}
       />
     </mesh>

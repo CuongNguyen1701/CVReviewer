@@ -1,13 +1,20 @@
-import { About, Hero, StarsCanvas, FileInput } from "./MainPageComponents";
+import {
+  About,
+  Hero,
+  StarsCanvas,
+  FileInput,
+  CriteriaChooser,
+} from "./MainPageComponents";
 import React from "react";
 
 const MainPage = () => {
   return (
     <>
-      <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
+      <div className="bg-center bg-no-repeat bg-cover bg-hero-pattern">
         <Hero />
       </div>
       <About />
+      <CriteriaChooser />
       <div className="relative z-0">
         <FileInput />
       </div>
