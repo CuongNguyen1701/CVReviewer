@@ -1,10 +1,4 @@
-import {
-  About,
-  Hero,
-  StarsCanvas,
-  FileInput,
-  CriteriaChooser,
-} from "./MainPageComponents";
+import { About, Hero, StarsCanvas, FileInput } from "./MainPageComponents";
 import React from "react";
 
 const MainPage = () => {
@@ -14,7 +8,6 @@ const MainPage = () => {
         <Hero />
       </div>
       <About />
-      <CriteriaChooser />
       <div className="relative z-0">
         <FileInput />
       </div>

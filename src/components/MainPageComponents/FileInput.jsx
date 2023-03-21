@@ -1,18 +1,35 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useDropzone } from "react-dropzone";
-import PDFPreview from "./PDFPreview";
 import { GearCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
 import { slideIn } from "../../utils/motion";
-
+import axios from "axios";
 const FileInput = () => {
   const [loading, setLoading] = useState(0);
+  const [paragraph, setParagraph] = useState("");
+  // const [formData, setFormData] = useState(new FormData());
   const [file, setFile] = useState(null);
-  const handleSubmit = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     if (!file) return alert("No file selected");
+    const formData = new FormData();
+    formData.append("fileCV", file, file.name);
+    formData.append("requirement", paragraph);
+    console.log(formData);
+    // axios
+    //   .post(`${process.env.BACK_END_URL}`, formData)
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
     //TODO: API and stuf
     setLoading(1);
+  };
+  const handleTextChange = (event) => {
+    setParagraph(event.target.value);
   };
   const handleFileInputChange = (e) => {
     try {
@@ -43,46 +60,58 @@ const FileInput = () => {
         variants={slideIn("left", "tween", 0.2, 1)}
         className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
       >
-        Drag n' drop your CV here for an AI-flavored review!
-        <div
-          {...getRootProps()}
-          htmlFor="dropzone-file"
-          className="flex flex-col gap-8 px-8 py-20 my-12 text-center text-black border-2 border-dashed cursor-pointer rounded-xl border-slate-500 bg-slate-100 hover:bg-slate-400 hover:border-black hover:text-white"
-        >
-          DROPZONE
-          <input
-            {...getInputProps()}
-            id="dropzone-file"
-            accept=".pdf"
-            type="file"
-            className="hidden"
-            onChange={handleFileInputChange}
+        <form>
+          <label className="p-3">Write about your staff requirements</label>
+          <textarea
+            id="paragraph"
+            name="paragraph"
+            rows="5"
+            className="p-5 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            value={paragraph}
+            onChange={handleTextChange}
           />
-        </div>
-        {file && (
-          <div className="p-3">
-            {file.name} uploaded!
-            {/* <PDFPreview file={file} /> */}
+          <div className="my-5">
+            Drag n' drop your CV here for an AI-flavored review!
+            <div
+              {...getRootProps()}
+              htmlFor="dropzone-file"
+              className="flex flex-col gap-8 px-8 py-20 my-3 text-center text-black border-2 border-dashed cursor-pointer rounded-xl border-slate-500 bg-slate-100 hover:bg-slate-400 hover:border-black hover:text-white"
+            >
+              DROPZONE
+              <input
+                {...getInputProps()}
+                id="dropzone-file"
+                accept=".pdf"
+                type="file"
+                className="hidden"
+                onChange={handleFileInputChange}
+              />
+            </div>
+            {file && (
+              <div className="p-3">
+                {file.name} uploaded!
+                {/* <PDFPreview file={file} /> */}
+              </div>
+            )}
+            <button
+              className="flex flex-row w-fit h-auto green-pink-gradient p-[1px]
+            rounded-[10px] shadow-card select-none self-end"
+            >
+              <div
+                className="bg-tertiary hover:bg-slate-600 rounded-[10px] py-5 px-12  
+              flex justify-evenly items-center flex-col"
+                onClick={handleSubmit}
+              >
+                SUBMIT
+              </div>
+            </button>
           </div>
-        )}
-        <button
-          className="flex flex-row w-fit h-auto green-pink-gradient p-[1px]
-                      rounded-[10px] shadow-card select-none self-end
-                       hover:p-[2px]"
-        >
-          <div
-            className="bg-tertiary rounded-[10px] py-5 px-12  
-                        flex justify-evenly items-center flex-col"
-            onClick={handleSubmit}
-          >
-            SUBMIT
-          </div>
-        </button>
+        </form>
       </motion.div>
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]"
+        className="flex-1 xl:h-[500px] h-[350px] w-auto"
       >
         <GearCanvas loading={loading} />
       </motion.div>

@@ -3,7 +3,7 @@ import Hero from "./Hero";
 import About from "./About";
 import CanvasLoader from "./Loader";
 import FileInput from "./FileInput";
-import CriteriaChooser from "./CriteriaChooser";
+import CriteriaInputBox from "./CriteriaInputBox";
 export {
   Hero,
   About,
@@ -12,5 +12,5 @@ export {
   MainObjectCanvas,
   StarsCanvas,
   FileInput,
-  CriteriaChooser,
+  CriteriaInputBox,
 };

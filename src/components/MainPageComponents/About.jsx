@@ -24,7 +24,7 @@ const MemberCard = ({ index, name, image, role, description }) => {
   };
   return (
     <div>
-      <Tilt className="xs:w-[250px] w-full">
+      <Tilt className="xs:w-[270px] w-full">
         <motion.div
           initial={false}
           animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -97,7 +97,7 @@ const About = () => {
         Our team has a vỉsion of
       </motion.p>
 
-      <div className="flex flex-wrap gap-10 mt-20 ">
+      <div className="flex flex-wrap gap-16 mt-20 items-center ">
         {members.map((member, index) => (
           <MemberCard key={member.name} index={index} {...member} />
         ))}
