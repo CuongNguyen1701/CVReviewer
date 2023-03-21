@@ -24,7 +24,7 @@ const MemberCard = ({ index, name, image, role, description }) => {
   };
   return (
     <div>
-      <Tilt className="xs:w-[270px] w-full">
+      <Tilt options={{ max: 10}} className="xs:w-[270px] w-full">
         <motion.div
           initial={false}
           animate={{ rotateY: isFlipped ? 180 : 0 }}

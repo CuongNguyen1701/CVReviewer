@@ -37,7 +37,7 @@ const members = [
   {
     name: "Do Chi Thanh",
     image: anon,
-    role: "Business Analyst",
+    role: "Business Advisor",
     description: "Description",
   },
   {

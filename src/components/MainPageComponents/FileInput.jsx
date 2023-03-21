@@ -5,6 +5,9 @@ import { GearCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
 import { slideIn } from "../../utils/motion";
 import axios from "axios";
+
+const backendUrl = import.meta.env.VITE_REACT_BACKEND_URL || "";
+
 const FileInput = () => {
   const [loading, setLoading] = useState(0);
   const [paragraph, setParagraph] = useState("");
@@ -16,16 +19,21 @@ const FileInput = () => {
     const formData = new FormData();
     formData.append("fileCV", file, file.name);
     formData.append("requirement", paragraph);
-    console.log(formData);
-    // axios
-    //   .post(`${process.env.BACK_END_URL}`, formData)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    //TODO: API and stuf
+
+    for (const entry of formData) {
+      console.log(entry); //Show all entries in formData
+    }
+    console.log(backendUrl);
+    // try {
+    //   const response = await axios.post(
+    //     `${backendUrl}`,
+    //     formData
+    //   );
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // TODO: API and stuf
     setLoading(1);
   };
   const handleTextChange = (event) => {
