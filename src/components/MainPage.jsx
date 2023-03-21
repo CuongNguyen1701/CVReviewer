@@ -7,10 +7,10 @@ const MainPage = () => {
       <div className="bg-center bg-no-repeat bg-cover bg-hero-pattern">
         <Hero />
       </div>
-      <About />
       <div className="relative z-0">
         <FileInput />
       </div>
+      <About />
       <StarsCanvas />
     </>
   );

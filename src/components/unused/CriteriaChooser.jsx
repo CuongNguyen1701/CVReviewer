@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Tilt from "react-tilt";
 import { useDropzone } from "react-dropzone";
-import PDFPreview from "./PDFPreview";
+import PDFPreview from "../MainPageComponents/PDFPreview";
 import { GearCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
 import { slideIn } from "../../utils/motion";
