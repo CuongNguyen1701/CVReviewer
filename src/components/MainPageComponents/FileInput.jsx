@@ -116,7 +116,7 @@ const FileInput = ({ updateResponse }) => {
               {file && (
                 <div className="p-3 flex flex-row">
                   {file.name} uploaded!
-                  <PdfPreview file={file} />
+                  {/* <PdfPreview file={file} /> */}
                 </div>
               )}
               <button
