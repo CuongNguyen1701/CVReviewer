@@ -1,4 +1,4 @@
-import { About, Hero, StarsCanvas, FileInput } from "./MainPageComponents";
+import { About, Hero, StarsCanvas, FileInput, Result } from "./MainPageComponents";
 import React, { useState } from "react";
 
 const MainPage = () => {
@@ -13,7 +13,7 @@ const MainPage = () => {
       </div>
       <div className="relative z-0">
         <FileInput updateResponse={updateResponse} />
-        {responseData && <div>This is the result</div>}
+        {responseData && <Result responseData={responseData}/>}
       </div>
       <About />
       <StarsCanvas />

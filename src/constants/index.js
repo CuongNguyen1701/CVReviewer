@@ -61,13 +61,13 @@ export const navLinks = [
     pathname: "/",
   },
   {
-    id: "about",
-    title: "About",
+    id: "service",
+    title: "Service",
     pathname: "/",
   },
   {
-    id: "test",
-    title: "Test",
+    id: "about",
+    title: "About",
     pathname: "/",
   },
 ];

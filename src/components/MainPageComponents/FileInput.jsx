@@ -73,7 +73,7 @@ const FileInput = ({ updateResponse }) => {
       viewport={{ once: true, amount: 0.25 }}
       className={`${styles.padding} max-w-7xl mx-auto relative z-0`}
     >
-      <span className="hash-span">&nbsp;</span>
+      <span className="hash-span" id={"service"}>&nbsp;</span>
 
       <div
         className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden select-none`}
