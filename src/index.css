@@ -13,6 +13,9 @@
   color-scheme: dark;
 }
 
+.rpv-core__text-layer {
+  display: none;
+}
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;

@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { slideIn } from "../../utils/motion";
-
+const tempData = {//This is just a temporary variable, delete when connnected to the server
+    rating: 10,
+};
 const Result = ({ responseData }) => {
+    let  rating = tempData.rating;
   return (
     <motion.section
       variants={staggerContainer()}
@@ -20,7 +23,9 @@ const Result = ({ responseData }) => {
         variants={slideIn("left", "tween", 0.2, 1)}
         className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
       >
-        This is the result
+        Result:
+        <br/>
+        {rating}/10
       </motion.div>
       <div
         className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden select-none`}

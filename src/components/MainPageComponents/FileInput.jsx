@@ -2,11 +2,10 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useDropzone } from "react-dropzone";
 import { GearCanvas } from "../canvas";
-import { SectionWrapper } from "../../hoc";
-
+import PdfPreview from "./PDFPreview";
 import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
-import { slideIn } from "../../utils/motion";
+import { slideIn, textVariant } from "../../utils/motion";
 import axios from "axios";
 
 const backendUrl = import.meta.env.VITE_REACT_BACKEND_URL || "";
@@ -26,20 +25,19 @@ const FileInput = ({ updateResponse }) => {
     for (const entry of formData) {
       console.log(entry); //Show all entries in formData
     }
-    console.log(backendUrl);
     console.log(updateResponse);
-    updateResponse(formData);
     try {
-      const response = await axios.post(
-        `${backendUrl}`,
-        formData
-      );
+      setLoading(1);
+      const response = await axios.post(`${backendUrl}`, formData);
       console.log(response);
     } catch (error) {
       console.log(error);
     }
+    setTimeout(() => {
+      updateResponse(1); //move into try block later
+      setLoading(0);
+    }, 5000);
     // TODO: API and stuf
-    setLoading(1);
   };
   const handleTextChange = (event) => {
     setParagraph(event.target.value);
@@ -71,10 +69,15 @@ const FileInput = ({ updateResponse }) => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
-      className={`${styles.padding} max-w-7xl mx-auto relative z-0`}
+      className={`${styles.padding} max-w-7xl mx-auto relative z-0 flex flex-col`}
     >
-      <span className="hash-span" id={"service"}>&nbsp;</span>
-
+      <span className="hash-span" id={"service"}>
+        &nbsp;
+      </span>
+      <motion.div variants={textVariant()}>
+        <p className={styles.sectionSubText}>Service</p>
+        <h2 className={styles.sectionHeadText}>CV Reviewer</h2>
+      </motion.div>
       <div
         className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden select-none`}
       >
@@ -88,7 +91,8 @@ const FileInput = ({ updateResponse }) => {
               id="paragraph"
               name="paragraph"
               rows="5"
-              className="p-5 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="p-5 block w-full mt-1 border-gray-300 rounded-md shadow-sm resize-none
+              focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               value={paragraph}
               onChange={handleTextChange}
             />
@@ -110,9 +114,9 @@ const FileInput = ({ updateResponse }) => {
                 />
               </div>
               {file && (
-                <div className="p-3">
+                <div className="p-3 flex flex-row">
                   {file.name} uploaded!
-                  {/* <PDFPreview file={file} /> */}
+                  <PdfPreview file={file} />
                 </div>
               )}
               <button
@@ -136,6 +140,11 @@ const FileInput = ({ updateResponse }) => {
           className="flex-1 xl:h-[500px] h-[350px] w-auto"
         >
           <GearCanvas loading={loading} />
+          {loading ? (
+            <div className="self-center animate-pulse text-2xl">
+              Waiting for the Ayy Eye to do the magic...
+            </div>
+          ) : null}
         </motion.div>
       </div>
     </motion.section>
