@@ -13,8 +13,8 @@ function PdfPreview({ file }) {
   return (
     <div className="overflow-hidden">
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-        <div className="max-h-10">
-          <Viewer disableWorker={true} fileUrl={previewUrl} />
+        <div>
+          <Viewer fileUrl={previewUrl} />
         </div>
       </Worker>
     </div>
