@@ -1,31 +1,18 @@
 import React from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-
+// import keys from "./key.js";
 const Login = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLogin = async () => {
-    // const clientId = "your_client_id_here"; // replace with your actual client ID
-    // const redirectUri = "http://example.com/callback"; // replace with your actual redirect URI
-    // const authorizationEndpoint = "https://backend.com/oauth2/authorize"; // replace with your actual authorization endpoint URL
-    // const scope = "email"; // replace with any required scope(s)
 
-    // // set up the authorization URL including query parameters
-    // const authorizationUrl = `${authorizationEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-    //   redirectUri
-    // )}&response_type=code&scope=${scope}`;
+    const loginButton = document.getElementById("google-login-button");
 
-    // // redirect the user to the authorization URL
-    window.location.href = `${process.env.BACK_END_URL}auth/google`;
-    axios
-      .get("http://localhost:8000/test")
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setIsLoggedIn(true);
-    alert("Logged in");
+    loginButton.addEventListener("click", () => {
+      window.location.href = `${
+        import.meta.env.VITE_REACT_BACKEND_URL
+      }/auth/google`;
+    });
+
   };
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-center bg-no-repeat bg-cover bg-hero-pattern">
@@ -39,7 +26,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
                         flex justify-evenly items-center flex-col gap-3"
         >
           Choose your preferred log in method:
-          <FacebookButton handleLogin={handleLogin} />
+          {/* <FacebookButton handleLogin={handleLogin} /> */}
           <GoogleButton handleLogin={handleLogin} />
         </div>
       </div>
@@ -53,6 +40,7 @@ const GoogleButton = ({ handleLogin }) => {
       className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg 
       text-sm px-7 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
       onClick={handleLogin}
+      id="google-login-button"
     >
       <svg
         className="w-4 h-4 mr-2 -ml-1"

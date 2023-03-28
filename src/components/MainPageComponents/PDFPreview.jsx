@@ -1,25 +1,20 @@
-import React, { useState } from "react";
-import { Document, Page } from "react-pdf";
 
-function PDFPreview({ file }) {
-  const [numPages, setNumPages] = useState(null);
-  console.log(file);
-  function onDocumentLoadSuccess({ numPages }) {
-    console.log(numPages);
-    setNumPages(numPages);
-  }
+// import { Worker, Viewer } from "@react-pdf-viewer/core";
+// import '@react-pdf-viewer/core/lib/styles/index.css';
 
+function PdfPreview({ file }) {
+
+  const previewUrl = file ? URL.createObjectURL(file) : null;
   return (
-    <div>
-      <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={1} />
-
-        {/* {Array.from(new Array(numPages), (el, index) => (
-          <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-        ))} */}
-      </Document>
+    <div className="overflow-hidden">
+      <Worker
+        workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js"
+      >
+        <div className="max-h-10">
+          <Viewer disableWorker={true} fileUrl={previewUrl} />
+        </div>
+      </Worker>
     </div>
   );
 }
-
-export default PDFPreview;
+export default PdfPreview;

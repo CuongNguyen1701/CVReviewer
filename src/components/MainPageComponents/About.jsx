@@ -94,7 +94,7 @@ const About = () => {
         variants={fadeIn("", "", 0, 0.5)}
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
-        Our team has a vỉsion of
+        Our team has a vision of
       </motion.p>
 
       <div className="flex flex-wrap gap-16 mt-20 items-center ">
