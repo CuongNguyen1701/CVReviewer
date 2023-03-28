@@ -1,0 +1,51 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@ffprobe-installer/ffprobe": "^1.4.1",
+    "@prisma/client": "^4.11.0",
+    "aws-sdk": "^2.1205.0",
+    "body-parser": "^1.20.2",
+    "connect-redis": "^7.0.1",
+    "cookie-session": "^2.0.0",
+    "cors": "^2.8.5",
+    "execa": "^6.1.0",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-extract-frames": "^2.0.2",
+    "ffprobe": "^1.1.2",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^10.1.0",
+    "ioredis": "^5.3.1",
+    "kill-port": "^2.0.1",
+    "minio": "^7.0.32",
+    "node-fetch": "^3.3.1",
+    "nodemon": "^2.0.21",
+    "passport": "^0.5.3",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-google-oauth20": "^2.0.0",
+    "path": "^0.12.7",
+    "pdf-parse": "^1.1.1",
+    "sharp": "^0.31.0",
+    "tesseract.js": "^4.0.2",
+    "url": "^0.11.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "ffmpeg-probe": "^1.0.6",
+    "fluent-ffmpeg": "^2.1.2",
+    "prisma": "^4.3.1"
+  }
+}

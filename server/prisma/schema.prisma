@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model User{
+  id String @id 
+  email String?
+  name String
+  photo String
+  accessToken String
+}
+// model Frame{
+//   id String 
+//   userId String
+
+//   faces Face[]
+//   user User @relation(fields: [userId], references: [id],onDelete: Cascade)
+//   @@id ([id,userId])
+// }
+// model Face{
+//   id Int @id @default(autoincrement())
+//   value String
+//   path String
+//   frameId String
+//   userId String
+//   frame Frame @relation(fields: [frameId,userId], references: [id,userId],onDelete: Cascade)
+// }
+ 

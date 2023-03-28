@@ -1,0 +1,87 @@
+import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth2";
+import { Strategy as FacebookStrategy } from "passport-facebook";
+import keys from "./key.js";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+const domain = process.env.BACKEND_URL;
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: keys.googleClientID,
+      clientSecret: keys.googleClientSecret,
+      callbackURL: `${domain}/auth/google/callback`,
+      passReqToCallback: true,
+    },
+    async (req, accessToken, refreshToken, profile, done) => {
+      if (profile.id) {
+        const existingUser = await prisma.user.findUnique({
+          where: {
+            id: profile.id,
+          },
+        });
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+        let newUser = await prisma.user.create({
+          data: {
+            id: profile.id,
+            email: profile.emails[0].value,
+            name: profile.name.familyName + " " + profile.name.givenName,
+            photo: profile.picture,
+            accessToken: accessToken,
+          },
+        });
+        done(null, newUser);
+      }
+    }
+  )
+);
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: keys.facebookClientID,
+      clientSecret: keys.facebookClientSecret,
+      callbackURL: `${domain}/auth/facebook/callback`,
+      passReqToCallback: true,
+      profileFields: ["id", "displayName", "photos", "email"],
+    },
+    async (req, accessToken, refreshToken, profile, done) => {
+      // console.log(profile);
+      if (profile.id) {
+        const existingUser = await prisma.user.findUnique({
+          where: {
+            id: profile.id,
+          },
+        });
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+        let newUser = await prisma.user.create({
+          data: {
+            id: profile.id,
+            email: profile.emails === undefined ? "" : profile.emails[0].value,
+            name: profile.displayName,
+            photo: profile.photos[0].value,
+            accessToken: accessToken,
+          },
+        });
+        done(null, newUser);
+      }
+    }
+  )
+);
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  let user = await prisma.user.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  done(null, user);
+});
