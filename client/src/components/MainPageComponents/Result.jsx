@@ -3,15 +3,26 @@ import { motion } from "framer-motion";
 import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { slideIn } from "../../utils/motion";
+import { Transition } from "@headlessui/react";
 const tempData = {
   //This is just a temporary variable, delete when connnected to the server
-  rating: 90,
+  rating: 87,
 };
 const Result = ({ responseData }) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (count < rating) {
+      const intervalId = setInterval(() => {
+        setCount((prevCount) => prevCount + 1);
+      }, 20);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [count]);
   let rating = tempData.rating;
   let radius = 120;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (rating / 100) * circumference;
+  const offset = circumference - (count / 100) * circumference;
   return (
     <motion.section
       variants={staggerContainer()}
@@ -53,7 +64,7 @@ const Result = ({ responseData }) => {
               className="text-blue-500 "
             />
           </svg>
-          <span className="absolute text-5xl">{`${rating}/100`}</span>
+          <span className="absolute text-5xl">{`${count}/100`}</span>
         </div>
       </motion.div>
       <div

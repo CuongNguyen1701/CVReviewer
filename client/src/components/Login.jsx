@@ -3,15 +3,16 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 // import keys from "./key.js";
 const Login = ({ isLoggedIn, setIsLoggedIn }) => {
-  const handleLogin = async () => {
-    const loginButton = document.getElementById("google-login-button");
 
-    loginButton.addEventListener("click", () => {
-      window.location.href = `${
-        import.meta.env.VITE_REACT_BACKEND_URL
-      }/auth/google`;
-    });
+  const handleLogin = async () => {
+    window.location.href = `${
+      import.meta.env.VITE_REACT_BACKEND_URL
+    }/auth/google`;
+
+    
   };
+
+
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-center bg-no-repeat bg-cover bg-hero-pattern">
       <div
@@ -38,7 +39,6 @@ const GoogleButton = ({ handleLogin }) => {
       className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg 
       text-sm px-7 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
       onClick={handleLogin}
-      id="google-login-button"
     >
       <svg
         className="w-4 h-4 mr-2 -ml-1"
