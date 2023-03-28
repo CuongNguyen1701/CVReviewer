@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 // import keys from "./key.js";
 const Login = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLogin = async () => {
-
     const loginButton = document.getElementById("google-login-button");
 
     loginButton.addEventListener("click", () => {
@@ -12,7 +11,6 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
         import.meta.env.VITE_REACT_BACKEND_URL
       }/auth/google`;
     });
-
   };
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-center bg-no-repeat bg-cover bg-hero-pattern">
