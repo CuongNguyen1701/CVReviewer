@@ -28,17 +28,20 @@ const FileInput = ({ updateResponse }) => {
     for (const entry of formData) {
       console.log(entry); //Show all entries in formData
     }
+    console.log(backendUrl);
+    console.log(updateResponse);
+    updateResponse(formData);
     try {
-      setLoading(1); //make the gear spin
-      const response = await axios.post(`${backendUrl}/upload`, formData); //API
-      console.log(response); //Response on inspect ele console
-      updateResponse(1); //used to trigger fake response div
+      const response = await axios.post(
+        `${backendUrl}`,
+        formData
+      );
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
-    setTimeout(() => {
-      setLoading(0); //stop the gear from moving
-    }, 1000);
+    // TODO: API and stuf
+    setLoading(1);
   };
 
   //Change displayed text whenever the user changes the requirement field(e.g. typing, deleting)
