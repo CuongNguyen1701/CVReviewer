@@ -17,7 +17,7 @@ const Hero = () => {
 
         <div>
           <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, We're <span className="text-[#915EFF]">DreamFlare</span> - a
+            Hi, We're <span className="text-[#915EFF]">DreamFlare</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
             This is our CV evaluation website!
