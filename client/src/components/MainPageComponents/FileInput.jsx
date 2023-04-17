@@ -8,20 +8,20 @@ import { staggerContainer } from "../../utils/motion";
 import { slideIn, textVariant } from "../../utils/motion";
 import axios from "axios";
 
-const backendUrl = import.meta.env.VITE_REACT_BACKEND_URL || ""; //from .env file
+const backendUrl = import.meta.env.VITE_REACT_BACKEND_URL || ""; //from .env files
 
 const FileInput = ({ updateResponse }) => {
   const [loading, setLoading] = useState(0);
   const [paragraph, setParagraph] = useState("");
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   //send CV and paragraph to the backend
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!file) return alert("No file selected");
+    if (!files) return alert("No files selected");
     console.log("here");
     const formData = new FormData();
-    formData.append("uploadedImages", file, file.name); //key 1
+    formData.append("uploadedImages", files, files.name); //key 1
     formData.append("des", paragraph); //key 2
 
     console.log(formData);
@@ -32,10 +32,7 @@ const FileInput = ({ updateResponse }) => {
     console.log(updateResponse);
     updateResponse(formData);
     try {
-      const response = await axios.post(
-        `${backendUrl}`,
-        formData
-      );
+      const response = await axios.post(`${backendUrl}`, formData);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -49,20 +46,21 @@ const FileInput = ({ updateResponse }) => {
     setParagraph(event.target.value);
   };
 
-  //Change the input file whenever the user
+  //Change the input files whenever the user
   const handleFileInputChange = (e) => {
     try {
       setLoading(0);
-      const processedFile = e.target ? e.target.files[0] : e;
-      if (!processedFile) return;
-      setFile(processedFile);
+      const processedFiles = e.target ? e.target.files : e;
+      console.log(processedFiles);
+      if (!processedFiles) return;
+      setFiles((files) => [...files, ...Array.from(processedFiles)]);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const onDrop = async (acceptedFiles) => {
-    handleFileInputChange(acceptedFiles[0]);
+  const onDrop = async (e) => {
+    handleFileInputChange(e);
   };
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -108,23 +106,29 @@ const FileInput = ({ updateResponse }) => {
               Drag n' drop your CV here for an AI-flavored review!
               <div
                 {...getRootProps()}
-                htmlFor="dropzone-file"
+                htmlFor="dropzone-files"
                 className="flex flex-col gap-8 px-8 py-20 my-3 text-center text-black border-2 border-dashed cursor-pointer rounded-xl border-slate-500 bg-slate-100 hover:bg-slate-400 hover:border-black hover:text-white"
               >
                 DROPZONE
                 <input
                   {...getInputProps()}
-                  id="dropzone-file"
+                  id="dropzone-files"
                   accept=".pdf"
-                  type="file"
+                  type="files"
+                  multiple={true}
                   className="hidden"
                   onChange={handleFileInputChange}
                 />
               </div>
-              {file && (
+              {files.map((file, index) => (
+                <div key={index}>
+                  {index + 1}. {file.name}
+                </div>
+              ))}
+              {files && (
                 <div className="p-3 flex flex-row">
-                  {file.name} uploaded!
-                  {/* <PdfPreview file={file} /> */}
+                  {files.name} uploaded!
+                  {/* <PdfPreview files={files} /> */}
                 </div>
               )}
               <button
