@@ -4,14 +4,18 @@ import { Navigate } from "react-router-dom";
 // import keys from "./key.js";
 const Login = ({ isLoggedIn, setIsLoggedIn }) => {
 
-  const handleLogin = async () => {
+  const handleLoginGoogle = async () => {
     window.location.href = `${
       import.meta.env.VITE_REACT_BACKEND_URL
     }/auth/google`;
-
     
   };
-
+  const handleLoginFacebook = async () => {
+    window.location.href = `${
+      import.meta.env.VITE_REACT_BACKEND_URL
+    }/auth/facebook`;
+    
+  };
 
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-center bg-no-repeat bg-cover bg-hero-pattern">
@@ -25,8 +29,8 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
                         flex justify-evenly items-center flex-col gap-3"
         >
           Choose your preferred log in method:
-          {/* <FacebookButton handleLogin={handleLogin} /> */}
-          <GoogleButton handleLogin={handleLogin} />
+          <FacebookButton handleLogin={handleLoginFacebook} />
+          <GoogleButton handleLogin={handleLoginGoogle} />
         </div>
       </div>
     </div>
