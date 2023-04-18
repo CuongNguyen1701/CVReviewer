@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useDropzone } from "react-dropzone";
 import { GearCanvas } from "../canvas";
-import PdfPreview from "./PDFPreview";
 import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { slideIn, textVariant } from "../../utils/motion";
@@ -33,7 +32,7 @@ const FileInput = ({ updateResponse }) => {
     updateResponse([
       { filename: "test.pdf", rating: 0.5 },
       { filename: "test.pdf", rating: 2.5 },
-    ]); 
+    ]);
     // try {
     //   const response = await axios.post(`${backendUrl}`, formData);
     //   console.log(response);
@@ -56,7 +55,8 @@ const FileInput = ({ updateResponse }) => {
       const processedFiles = e.target ? e.target.files : e;
       console.log(processedFiles);
       if (!processedFiles) return;
-      setFiles((files) => [...files, ...Array.from(processedFiles)]);
+      setFiles((files) => [...files, ...processedFiles]);
+      console.log(files);
     } catch (err) {
       console.log(err);
     }
