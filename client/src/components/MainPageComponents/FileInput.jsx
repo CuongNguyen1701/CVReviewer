@@ -21,7 +21,7 @@ const FileInput = ({ updateResponse }) => {
     if (!files) return alert("No files selected");
     console.log("here");
     const formData = new FormData();
-    
+
     formData.append("uploadedCVs", files); //key 1
     formData.append("des", paragraph); //key 2
 
@@ -30,8 +30,10 @@ const FileInput = ({ updateResponse }) => {
       console.log(entry); //Show all entries in formData
     }
     console.log(backendUrl);
-    console.log(updateResponse);
-    updateResponse(formData);
+    updateResponse([
+      { filename: "test.pdf", rating: 0.5 },
+      { filename: "test.pdf", rating: 2.5 },
+    ]); 
     // try {
     //   const response = await axios.post(`${backendUrl}`, formData);
     //   console.log(response);
