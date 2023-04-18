@@ -21,7 +21,8 @@ const FileInput = ({ updateResponse }) => {
     if (!files) return alert("No files selected");
     console.log("here");
     const formData = new FormData();
-    formData.append("uploadedImages", files, files.name); //key 1
+    
+    formData.append("uploadedCVs", files); //key 1
     formData.append("des", paragraph); //key 2
 
     console.log(formData);
@@ -31,12 +32,12 @@ const FileInput = ({ updateResponse }) => {
     console.log(backendUrl);
     console.log(updateResponse);
     updateResponse(formData);
-    try {
-      const response = await axios.post(`${backendUrl}`, formData);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const response = await axios.post(`${backendUrl}`, formData);
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error);
+    // }
     // TODO: API and stuf
     setLoading(1);
   };
@@ -100,6 +101,7 @@ const FileInput = ({ updateResponse }) => {
               className="p-5 block w-full mt-1 border-gray-300 rounded-md shadow-sm resize-none
               focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               value={paragraph}
+              placeholder="Enter your JD..."
               onChange={handleTextChange}
             />
             <div className="my-5">
@@ -121,16 +123,25 @@ const FileInput = ({ updateResponse }) => {
                 />
               </div>
               {files.map((file, index) => (
-                <div key={index}>
-                  {index + 1}. {file.name}
+                <div
+                  key={index}
+                  className="flex flex-row justify-between gap-5 bg-slate-500 rounded-md m-4 p-2 w-5/6 hover:bg-slate-300 hover:text-black"
+                >
+                  {index + 1}.{" "}
+                  {file.name.length > 30
+                    ? `${file.name.substr(0, 20)}...`
+                    : file.name}
+                  <button
+                    className="bg-red-500 text-white rounded-3xl h-6 w-6 hover:bg-red-300 z-10"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setFiles(files.filter((f) => f !== file));
+                    }}
+                  >
+                    X
+                  </button>
                 </div>
               ))}
-              {files && (
-                <div className="p-3 flex flex-row">
-                  {files.name} uploaded!
-                  {/* <PdfPreview files={files} /> */}
-                </div>
-              )}
               <button
                 className="flex flex-row w-fit h-auto green-pink-gradient p-[1px]
             rounded-[10px] shadow-card select-none self-end"

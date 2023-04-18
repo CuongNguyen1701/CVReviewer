@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { slideIn } from "../../utils/motion";
-import { Transition } from "@headlessui/react";
+import { XLSXDownloader } from "./";
 const tempData = {
   //This is just a temporary variable, delete when connnected to the server
   rating: 87,
@@ -66,6 +66,7 @@ const Result = ({ responseData }) => {
           </svg>
           <span className="absolute text-5xl">{`${count}/100`}</span>
         </div>
+        <XLSXDownloader />
       </motion.div>
       <div
         className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden select-none`}

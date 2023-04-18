@@ -1,55 +1,40 @@
-import {
-  web,
-  javascript,
-  typescript,
-  html,
-  css,
-  reactjs,
-  tailwind,
-  nodejs,
-  mongodb,
-  git,
-  threejs,
-  cuong,
-  hnam,
-  anon,
-} from "../assets";
+import { cuong, hnam, pnam, anon, thanh, hadinh } from "../assets";
 
 const members = [
   {
+    name: "Do Chi Thanh",
+    image: thanh,
+    role: "Business Analyst",
+    description: "Description",
+  },
+  {
+    name: "Dinh Viet Ha",
+    image: hadinh,
+    role: "AI Engineer",
+    description: "Description",
+  },
+  {
     name: "Nguyen Truc Cuong",
     image: cuong,
-    role: "Front-end Developer",
+    role: "Fullstack Developer",
+    description: "Description",
+  },
+  {
+    name: "Le Phuong Nam",
+    image: pnam,
+    role: "Data Analyst",
+    description: "Description",
+  },
+  {
+    name: "DreamFlare",
+    image: anon,
+    role: "Team",
     description: "Description",
   },
   {
     name: "Tran Duc Hoang Nam",
     image: hnam,
-    role: "Back-end Developer",
-    description: "Description",
-  },
-  {
-    name: "Le Phuong Nam",
-    image: anon,
-    role: "Back-end Developer",
-    description: "Description",
-  },
-  {
-    name: "Do Chi Thanh",
-    image: anon,
-    role: "Business Advisor",
-    description: "Description",
-  },
-  {
-    name: "Dinh Viet Ha",
-    image: anon,
-    role: "AI Engineer",
-    description: "Description",
-  },
-  {
-    name: "Name",
-    image: anon,
-    role: "Mentor",
+    role: "Fullstack Developer",
     description: "Description",
   },
 ];
@@ -72,48 +57,4 @@ export const navLinks = [
   },
 ];
 
-const technologies = [
-  {
-    name: "HTML 5",
-    icon: html,
-  },
-  {
-    name: "CSS 3",
-    icon: css,
-  },
-  {
-    name: "JavaScript",
-    icon: javascript,
-  },
-  {
-    name: "TypeScript",
-    icon: typescript,
-  },
-  {
-    name: "React JS",
-    icon: reactjs,
-  },
-
-  {
-    name: "Tailwind CSS",
-    icon: tailwind,
-  },
-  {
-    name: "Node JS",
-    icon: nodejs,
-  },
-  {
-    name: "MongoDB",
-    icon: mongodb,
-  },
-  {
-    name: "Three JS",
-    icon: threejs,
-  },
-  {
-    name: "git",
-    icon: git,
-  },
-];
-
-export { members, technologies };
+export { members };

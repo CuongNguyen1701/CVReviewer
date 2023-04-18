@@ -97,7 +97,7 @@ const About = () => {
         Our team has a vision of
       </motion.p>
 
-      <div className="flex flex-wrap gap-16 mt-20 items-center ">
+      <div className="flex flex-wrap justify-evenly gap-16 mt-20 items-center ">
         {members.map((member, index) => (
           <MemberCard key={member.name} index={index} {...member} />
         ))}

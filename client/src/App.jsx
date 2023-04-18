@@ -10,6 +10,7 @@ const App = () => {
       <div className="relative z-0 bg-primary">
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
+          <Route path=":id"/>
           <Route path="/" element={<MainPage />} />
           <Route
             path="/login"
