@@ -32,15 +32,6 @@ const FileInput = ({ updateResponse }) => {
       console.log(entry); //Show all entries in formData
     }
     console.log(backendUrl);
-
-    // updateResponse([
-    //   { filename: "test4.pdf", rating: 0.88 },
-    //   { filename: "test2.pdf", rating: 0.76 },
-    //   { filename: "test3.pdf", rating: 0.75 },
-    //   { filename: "test3.pdf", rating: 0.61 },
-    //   { filename: "test1.pdf", rating: 0.57 },
-    //   { filename: "test3.pdf", rating: 0.35 },
-    // ]);
     try {
       setLoading(1);
       const response = await axios.post(`${backendUrl}/upload`, formData, {
@@ -49,7 +40,7 @@ const FileInput = ({ updateResponse }) => {
         },
       });
       console.log(response.data);
-      updateResponse(JSON.parse(response.data));
+      updateResponse(response.data);
     } catch (error) {
       setLoading(0);
       console.log(error);
@@ -110,7 +101,7 @@ const FileInput = ({ updateResponse }) => {
     return (
       <div
         key={index}
-        className="flex flex-row justify-between gap-5 bg-slate-500 rounded-md m-4 p-2 w-5/6 hover:bg-slate-300 hover:text-black"
+        className="flex flex-row justify-between gap-5 bg-slate-500 rounded-md m-4 p-2  hover:bg-slate-300 hover:text-black"
       >
         <div className="flex flex-row gap-2">
           <img
@@ -123,7 +114,7 @@ const FileInput = ({ updateResponse }) => {
             : file.name}
         </div>
         <button
-          className="bg-red-500 text-white rounded-3xl h-6 w-6 hover:bg-red-300 z-10"
+          className="bg-red-500 text-white rounded-3xl h-6 w-6 hover:bg-red-300 hover:text-black z-10"
           onClick={(event) => {
             event.preventDefault();
             setFiles(files.filter((f) => f !== file));
@@ -210,6 +201,16 @@ const FileInput = ({ updateResponse }) => {
                   onChange={handleFileInputChange}
                 />
               </div>
+              <button
+                className="bg-red-500 rounded-2xl max-h-20 p-2
+                                  hover:bg-red-300 hover:text-black"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setFiles([]);
+                }}
+              >
+                Clear all
+              </button>
               {files.map((file, index) => (
                 <UploadedFile file={file} index={index} key={index} />
               ))}

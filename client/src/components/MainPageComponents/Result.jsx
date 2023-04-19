@@ -52,7 +52,12 @@ const ResultComponent = ({ data, rank }) => {
   );
 };
 
-const Result = ({ responseData }) => {
+const Result = ({ responseData, setHistory }) => {
+  const [dataList, setDataList] = useState([]);
+  useEffect(() => {
+    setHistory((prevHistory) => [...prevHistory, responseData]);
+    setDataList(responseData);
+  }, [responseData]);
   return (
     <motion.section
       variants={staggerContainer()}
@@ -69,9 +74,9 @@ const Result = ({ responseData }) => {
         className="flex flex-col gap-3 bg-black-100 p-8 rounded-2xl"
       >
         Based on the requirements, the CVs are ranked as follows:
-        <XLSXDownloader data={responseData} />
+        <XLSXDownloader data={dataList} />
         <div className="flex flex-col justify-between">
-          {responseData.map((data, index) => {
+          {dataList.map((data, index) => {
             return <ResultComponent data={data} key={index} rank={index} />;
           })}
         </div>

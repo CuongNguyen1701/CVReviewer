@@ -52,7 +52,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             <span className="hidden sm:block"> | NeuralCV</span>
           </p>
         </Link>
-        {/* {isLoggedIn ? (
+        {isLoggedIn ? (
           <>
             Logged in
             <Link to="/">
@@ -78,7 +78,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
               </button>
             )}
           </Link>
-        )} */}
+        )}
         <ul className="flex-row hidden gap-10 list-none sm:flex">
           {navLinks.map((nav) => (
             <li

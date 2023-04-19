@@ -5,7 +5,9 @@ import CanvasLoader from "./Loader";
 import FileInput from "./FileInput";
 import Result from "./Result";
 import XLSXDownloader from "./XLSXDownloader";
+import History from "./History";
 export {
+  History,
   XLSXDownloader,
   Hero,
   About,
