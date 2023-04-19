@@ -27,3 +27,4 @@ dist-ssr
 key.js 
 # vscode
 .vscode
+client/src/components/MainPageComponents/test.json

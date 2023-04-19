@@ -6,9 +6,12 @@ const downloadExcel = (data) => {
   const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-  XLSX.writeFile(workbook, "DataSheet.xlsx");
+  XLSX.writeFile(workbook, `NeuralCV_${Date.now()}.xlsx`);
 };
+// const miliseconds = date.getMilliseconds().toString().padStart(3, '0');
+// const formattedDate = `${year}_${month}_${day}_${hours}_${minutes}_${seconds}`;
 const XLSXDownloader = ({ data }) => {
+  console.log(data);
   return (
     <button
       className="bg-green-600 rounded-lg p-2 max-w-md hover:bg-green-300 hover:text-black 

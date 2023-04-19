@@ -4,20 +4,15 @@ import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { slideIn } from "../../utils/motion";
 import { XLSXDownloader } from "./";
-const tempData = {
-  //This is just a temporary variable, delete when connnected to the server
-  rating: 87,
-};
 
 const ResultComponent = ({ data, rank }) => {
   const [count, setCount] = useState(0);
   let rating = data.rating * 100;
-  console.log("rating:" + rating);
   useEffect(() => {
     if (count < rating) {
       const intervalId = setInterval(() => {
         setCount((prevCount) => prevCount + 1);
-      }, 20);
+      }, 40);
       return () => clearInterval(intervalId);
     }
   }, [count]);
@@ -26,7 +21,7 @@ const ResultComponent = ({ data, rank }) => {
   const offset = circumference - (count / 100) * circumference;
   let c = 40;
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row items-center text-lg">
       {`${rank + 1})`}
       <svg className="transform -rotate-90 w-20 h-20 overflow-visible">
         <circle
@@ -73,8 +68,8 @@ const Result = ({ responseData }) => {
         variants={slideIn("left", "tween", 0.2, 1)}
         className="flex flex-col gap-3 bg-black-100 p-8 rounded-2xl"
       >
-        Based on the requirements, the CV is rated:
-        <XLSXDownloader />
+        Based on the requirements, the CVs are ranked as follows:
+        <XLSXDownloader data={responseData} />
         <div className="flex flex-col justify-between">
           {responseData.map((data, index) => {
             return <ResultComponent data={data} key={index} rank={index} />;

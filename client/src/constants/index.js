@@ -5,25 +5,29 @@ const members = [
     name: "Do Chi Thanh",
     image: thanh,
     role: "Business Analyst",
-    description: "Description",
+    description:
+      "Third year student at Hanoi University of Science and Technology, majoring in Computer Science",
   },
   {
     name: "Dinh Viet Ha",
     image: hadinh,
     role: "AI Engineer",
-    description: "Description",
+    description:
+      "Sophomore student at Hanoi University of Science and Technology, majoring in Computer Science",
   },
   {
     name: "Nguyen Truc Cuong",
     image: cuong,
     role: "Fullstack Developer",
-    description: "Description",
+    description:
+      "Sophomore student at Hanoi University of Science and Technology, majoring in Computer Science",
   },
   {
     name: "Le Phuong Nam",
     image: pnam,
     role: "Data Analyst",
-    description: "Description",
+    description:
+      "Sophomore student at Hanoi University of Science and Technology, majoring in Computer Science",
   },
   {
     name: "DreamFlare",
@@ -35,7 +39,8 @@ const members = [
     name: "Tran Duc Hoang Nam",
     image: hnam,
     role: "Fullstack Developer",
-    description: "Description",
+    description:
+      "Sophomore student at Hanoi University of Science and Technology, majoring in Computer Science",
   },
 ];
 

@@ -45,6 +45,8 @@ module.exports = {
       },
       backgroundImage: {
         "hero-pattern": "url('/src/assets/herobg.png')",
+        "vn-circle": "url('/src/assets/flags-circle/vn-circle.png')",
+        "en-circle": "url('/src/assets/flags-circle/en-circle.png')",
       },
     },
   },
