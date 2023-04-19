@@ -30,8 +30,12 @@ const FileInput = ({ updateResponse }) => {
     }
     console.log(backendUrl);
     updateResponse([
-      { filename: "test.pdf", rating: 0.5 },
-      { filename: "test.pdf", rating: 2.5 },
+      { filename: "test4.pdf", rating: 0.8 },
+      { filename: "test2.pdf", rating: 0.75 },
+      { filename: "test3.pdf", rating: 0.65 },
+      { filename: "test3.pdf", rating: 0.6 },
+      { filename: "test1.pdf", rating: 0.5 },
+      { filename: "test3.pdf", rating: 0.35 },
     ]);
     // try {
     //   const response = await axios.post(`${backendUrl}`, formData);
@@ -129,10 +133,16 @@ const FileInput = ({ updateResponse }) => {
                   key={index}
                   className="flex flex-row justify-between gap-5 bg-slate-500 rounded-md m-4 p-2 w-5/6 hover:bg-slate-300 hover:text-black"
                 >
-                  {index + 1}.{" "}
-                  {file.name.length > 30
-                    ? `${file.name.substr(0, 20)}...`
-                    : file.name}
+                  <div className="flex flex-row gap-2">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/6/6c/PDF_icon.svg"
+                      className="h-auto w-5"
+                    ></img>
+                    {index + 1}.{" "}
+                    {file.name.length > 30
+                      ? `${file.name.substr(0, 20)}...pdf`
+                      : file.name}
+                  </div>
                   <button
                     className="bg-red-500 text-white rounded-3xl h-6 w-6 hover:bg-red-300 z-10"
                     onClick={(event) => {
