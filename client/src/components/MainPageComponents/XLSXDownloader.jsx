@@ -5,11 +5,18 @@ const downloadExcel = (data) => {
   console.log(data);
   const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-  XLSX.writeFile(workbook, `NeuralCV_${Date.now()}.xlsx`);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "NeuralCVRater");
+  const date = new Date(Date.now());
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const seconds = date.getSeconds().toString().padStart(2, "0");
+  const miliseconds = date.getMilliseconds().toString().padStart(3, "0");
+  const formattedDate = `${year}_${month}_${day}_${hours}_${minutes}_${seconds}_${miliseconds}`;
+  XLSX.writeFile(workbook, `NeuralCV_${formattedDate}.xlsx`);
 };
-// const miliseconds = date.getMilliseconds().toString().padStart(3, '0');
-// const formattedDate = `${year}_${month}_${day}_${hours}_${minutes}_${seconds}`;
 const XLSXDownloader = ({ data }) => {
   console.log(data);
   return (
