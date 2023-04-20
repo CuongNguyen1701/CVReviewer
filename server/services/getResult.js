@@ -1,19 +1,23 @@
 import multer from "multer";
-import loadPdf from "../services/loadPdf.js";
+import loadPdf from "./loadPdf.js";
 import fetch from "node-fetch";
 import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
+
+const dirPath = `./uploads/${uuidv4()}`;
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
+  destination: async function (req, file, cb) {
+    await fs.promises.mkdir(dirPath, { recursive: true });
+    cb(null, dirPath);
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + Date.now() + ".pdf");
+    cb(null, file.originalname);
   },
 });
 const multi_upload = multer({
   storage,
-  limits: { fileSize: 1 * 1024 * 1024 }, // 1MB
-}).array("uploadedImages", 100);
+  limits: { fileSize: 2 * 1024 * 1024 }, // 1MB
+}).array("uploadedCVs", 100);
 
 const upload_process = (req, res) => {
   multi_upload(req, res, async function (err) {
@@ -46,18 +50,23 @@ const upload_process = (req, res) => {
     // show file `req.files`
     // show body `req.body`
     try {
+      let fileList = [];
+      // console.log(req.user);
       const promises = req.files.map(async (file) => {
         const data = await loadPdf(file.path);
         fs.unlink(`${file.path}`, (err) => {
           if (err) throw err;
         });
+        fileList.push(file.filename);
         return data;
       });
 
-      await Promise.all(promises).then(async (arrayData) => {
+      Promise.all(promises).then(async (arrayData) => {
         // Serialize the request body into JSON
+        // console.log(arrayData);
+        // await fs.promises.rmdir(dirPath);
         const body = JSON.stringify({
-          des: req.body.des,
+          des: req.body.description,
           inf: arrayData,
         });
 
@@ -72,7 +81,17 @@ const upload_process = (req, res) => {
         });
 
         const json = await response.json();
-        res.json(json);
+
+        const result = fileList.map((filename, i) => ({
+          filename,
+          sorted: json.sorted[i],
+          rating:
+            json.similarity[i] < 0 ? -json.similarity[i] : json.similarity[i],
+        }));
+        result.sort((a, b) => b.rating - a.rating);
+
+        console.log(JSON.stringify(result));
+        res.json(result);
       });
     } catch (err) {
       console.log(err);

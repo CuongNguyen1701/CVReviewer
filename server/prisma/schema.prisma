@@ -10,12 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model User{
-  id String @id 
+  userId String @id
+  id Int @default(autoincrement())
   email String?
   name String
-  photo String
-  accessToken String
+  photo String?
+  
+  history History[]
+  cv Cv[] 
 }
+model Cv{
+  id Int @id @default(autoincrement())
+  name String
+  score String
+
+  userId String
+  user User @relation(fields:[userId],references: [userId],onDelete: Cascade)
+}
+model History{
+  id Int @id @default(autoincrement())
+  des String
+  inf String[]
+  linkDownload String[]
+
+  userId String
+  user User @relation(fields:[userId],references: [userId],onDelete: Cascade)
+} 
+
 // model Frame{
 //   id String 
 //   userId String

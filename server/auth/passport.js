@@ -1,5 +1,5 @@
 import passport from "passport";
-import { Strategy as GoogleStrategy } from "passport-google-oauth2";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 import keys from "./key.js";
 import { PrismaClient } from "@prisma/client";
@@ -16,25 +16,28 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, accessToken, refreshToken, profile, done) => {
+      // const sessionToken = req.sessionID;
+      // req.session.userProfile = profile;
+      // req.session.sessionToken = sessionToken;
       if (profile.id) {
         const existingUser = await prisma.user.findUnique({
           where: {
-            id: profile.id,
+            userId: profile.id,
           },
         });
         if (existingUser) {
           return done(null, existingUser);
         }
+        let photoUrl = profile.picture ? profile.picture : null;
         let newUser = await prisma.user.create({
           data: {
-            id: profile.id,
+            userId: profile.id,
             email: profile.emails[0].value,
             name: profile.name.familyName + " " + profile.name.givenName,
-            photo: profile.picture,
-            accessToken: accessToken,
+            photo: photoUrl,
           },
         });
-        done(null, newUser);
+        return done(null, newUser);
       }
     }
   )
@@ -53,7 +56,7 @@ passport.use(
       if (profile.id) {
         const existingUser = await prisma.user.findUnique({
           where: {
-            id: profile.id,
+            userId: profile.id,
           },
         });
         if (existingUser) {
@@ -61,11 +64,10 @@ passport.use(
         }
         let newUser = await prisma.user.create({
           data: {
-            id: profile.id,
+            userId: profile.id,
             email: profile.emails === undefined ? "" : profile.emails[0].value,
             name: profile.displayName,
             photo: profile.photos[0].value,
-            accessToken: accessToken,
           },
         });
         done(null, newUser);
@@ -74,13 +76,13 @@ passport.use(
   )
 );
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.userId);
 });
 
 passport.deserializeUser(async (id, done) => {
   let user = await prisma.user.findUnique({
     where: {
-      id: id,
+      userId: id,
     },
   });
   done(null, user);
