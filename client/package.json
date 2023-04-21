@@ -25,6 +25,7 @@
     "react-router-dom": "^6.8.1",
     "react-tilt": "^0.1.4",
     "react-vertical-timeline-component": "^3.6.0",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "three": "^0.149.0",
     "xlsx": "^0.18.5"
   },

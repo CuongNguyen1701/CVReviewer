@@ -5,12 +5,13 @@ import { GearCanvas } from "../canvas";
 import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { slideIn, textVariant } from "../../utils/motion";
+import { History } from "./";
 import SubmitButton from "./SubmitButton";
 import axios from "axios";
 
 const backendUrl = import.meta.env.VITE_REACT_BACKEND_URL || ""; //from .env files
 
-const FileInput = ({ updateResponse }) => {
+const FileInput = ({ updateResponse, history }) => {
   const [loading, setLoading] = useState(0);
   const [paragraph, setParagraph] = useState("");
   const [files, setFiles] = useState([]);
@@ -155,7 +156,7 @@ const FileInput = ({ updateResponse }) => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
-      className={`${styles.padding} max-w-7xl mx-auto relative z-0 flex flex-col`}
+      className={`${styles.padding} max-w-full mx-auto relative z-0 flex flex-col`}
     >
       <span className="hash-span" id={"service"}>
         &nbsp;
@@ -171,58 +172,64 @@ const FileInput = ({ updateResponse }) => {
           variants={slideIn("left", "tween", 0.2, 1)}
           className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
         >
-          <form>
-            <label className="p-3">Write about your staff requirements</label>
-            <textarea
-              id="paragraph"
-              name="paragraph"
-              rows="5"
-              className="p-5 block w-full mt-1 border-gray-300 rounded-md shadow-sm resize-none
+          <div className="flex flex-row justify-center gap-5">
+            <div className="bg-tertiary p-8 rounded-2xl">
+              History
+              <History history={history} />
+            </div>
+            <form>
+              <label className="p-3">Write about your staff requirements</label>
+              <textarea
+                id="paragraph"
+                name="paragraph"
+                rows="5"
+                className="p-5 block w-full mt-1 border-gray-300 rounded-md shadow-sm resize-none
               focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              value={paragraph}
-              placeholder="Enter your JD..."
-              onChange={handleTextChange}
-            />
-            <div className="my-5">
-              <div
-                {...getRootProps()}
-                htmlFor="dropzone-files"
-                className="flex flex-col gap-8 px-8 py-20 my-3 text-center text-black border-2 border-dashed cursor-pointer rounded-xl 
+                value={paragraph}
+                placeholder="Enter your JD..."
+                onChange={handleTextChange}
+              />
+              <div className="my-5">
+                <div
+                  {...getRootProps()}
+                  htmlFor="dropzone-files"
+                  className="flex flex-col gap-8 px-8 py-20 my-3 text-center text-black border-2 border-dashed cursor-pointer rounded-xl 
                           border-slate-500 bg-slate-100 hover:bg-slate-400 hover:text-white hover:border-white"
-              >
-                Drag & drop your CV here for an AI-flavored review!
-                <input
-                  {...getInputProps()}
-                  id="dropzone-files"
-                  accept=".pdf"
-                  type="files"
-                  multiple={true}
-                  className="hidden"
-                  onChange={handleFileInputChange}
-                />
-              </div>
-              <button
-                className="bg-red-500 rounded-2xl max-h-20 p-2
+                >
+                  Drag & drop your CV here for an AI-flavored review!
+                  <input
+                    {...getInputProps()}
+                    id="dropzone-files"
+                    accept=".pdf"
+                    type="files"
+                    multiple={true}
+                    className="hidden"
+                    onChange={handleFileInputChange}
+                  />
+                </div>
+                <button
+                  className="bg-red-500 rounded-2xl max-h-20 p-2
                                   hover:bg-red-300 hover:text-black"
-                onClick={(event) => {
-                  event.preventDefault();
-                  setFiles([]);
-                }}
-              >
-                Clear all
-              </button>
-              {files.map((file, index) => (
-                <UploadedFile file={file} index={index} key={index} />
-              ))}
-              <div className="flex flex-row justify-between">
-                <SubmitButton handleSubmit={handleSubmit} />
-                <div className="flex flex-row gap-5 p-2 justify-between">
-                  <LanguageButton lang="en" />
-                  <LanguageButton lang="vn" />
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setFiles([]);
+                  }}
+                >
+                  Clear all
+                </button>
+                {files.map((file, index) => (
+                  <UploadedFile file={file} index={index} key={index} />
+                ))}
+                <div className="flex flex-row justify-between">
+                  <SubmitButton handleSubmit={handleSubmit} />
+                  <div className="flex flex-row gap-5 p-2 justify-between">
+                    <LanguageButton lang="en" />
+                    <LanguageButton lang="vn" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </motion.div>
 
         <motion.div

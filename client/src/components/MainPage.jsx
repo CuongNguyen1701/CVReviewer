@@ -14,12 +14,12 @@ const MainPage = () => {
     setResponseData(data);
   };
   return (
-    <>
-      <div className="bg-center bg-no-repeat bg-cover bg-hero-pattern">
-        <Hero />
-      </div>
+    <div className="scrollbar">
+      <Hero />
+      {/* <div className="bg-center bg-no-repeat bg-cover bg-hero-pattern">
+      </div> */}
       <div className="relative z-0">
-        <FileInput updateResponse={updateResponse} />
+        <FileInput updateResponse={updateResponse} history={history} />
         {responseData && (
           <Result responseData={responseData} setHistory={setHistory} />
         )}
@@ -27,7 +27,7 @@ const MainPage = () => {
       </div>
       <About />
       <StarsCanvas />
-    </>
+    </div>
   );
 };
 
