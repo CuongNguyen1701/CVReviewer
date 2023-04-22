@@ -5,40 +5,44 @@ import passport from "passport";
 import { router } from "./routes/routes.js";
 import cookieParser from "cookie-parser";
 // import keys from "./auth/key.js";
+import middlewares from "./middlewares/errors.js";
 // import cookieSession from "cookie-session";
 import cors from "cors";
 import "./auth/passport.js";
 const app = express();
 const port = process.env.PORT || 8000;
+app.set("trust proxy", 1);
 
 const server = http.createServer(app);
 
 app.use(cookieParser());
 app.use(
   session({
-    secret: "cats",
-    resave: false,
+    secret: process.env.SESSION_KEY,
+    resave: true,
     saveUninitialized: true,
     cookie: {
       secure: true,
-      httpOnly: true,
       sameSite: "none",
-      maxAge: 60 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
-app.use(cors({ credentials: true, origin: ["*"] }));
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", ["*"]);
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+
+app.use(cors({ credentials: true, origin: "http://127.0.0.1:5173" }));
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", ["http://127.0.0.1:5173"]);
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// });
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(router);
 
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 server.listen(port, () => {
   console.log(`🚀 Server is running on port ${port} ...`);
 });

@@ -2,18 +2,17 @@ import express from "express";
 const router = express.Router();
 import passport from "passport";
 import upload_process from "../services/getResult.js";
-// import cors from "cors";
-// router.use(
-//   cors({
-//     origin: process.env.CLIENT_URL,
-//   })
-// );
+import isUserAuthenticated from "../middlewares/checkAuth.js";
+
+const successLoginUrl = "http://127.0.0.1:5173/login/success";
+const failureLoginUrl = "http://127.0.0.1:5173/login/error";
 
 router.post("/upload", upload_process);
 
 router.get("/", (req, res) => {
-  res.send("Hello");
+  res.send("Hello ?");
 });
+
 router.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -28,11 +27,11 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/auth/google/failure",
+    successRedirect: successLoginUrl,
+    failureRedirect: failureLoginUrl,
   }),
   (req, res) => {
-    req.session.user = req.user;
-    res.redirect(`${process.env.FRONTEND_URL}/user/auth/${req.user.userId}`);
+    res.send("LoggedIn");
   }
 );
 router.get(
@@ -61,19 +60,9 @@ router.get("/logout", (req, res, next) => {
     res.send("Logged out");
   });
 });
-router.get(
-  "/api/current_user",
-  (req, res, next) => {
-    if (!req.session.user) {
-      res.redirect(`${process.env.FRONTEND_URL}`);
-    } else {
-      next();
-    }
-  },
-  (req, res) => {
-    res.send(req.session.user);
-  }
-);
+router.get("/api/current_user", isUserAuthenticated, (req, res) => {
+  res.json(req.user);
+});
 
 router.get("/auth/google/failure", (req, res) => {
   res.send("Failed to authenticate..");
