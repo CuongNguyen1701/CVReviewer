@@ -1,13 +1,17 @@
 import express from "express";
 const router = express.Router();
 import passport from "passport";
-import upload_process from "../services/getResult.js";
+import upload_process from "../services/upload_process.js";
 import isUserAuthenticated from "../middlewares/checkAuth.js";
+import history from "../services/history.js";
 
-const successLoginUrl = "http://127.0.0.1:5173/login/success";
-const failureLoginUrl = "http://127.0.0.1:5173/login/error";
+import dotenv from "dotenv";
+dotenv.config();
 
-router.post("/upload", upload_process);
+const successLoginUrl = `${process.env.FRONTEND_URL}/login/success`;
+const failureLoginUrl = `${process.env.FRONTEND_URL}/login/error`;
+
+router.post("/upload", isUserAuthenticated, upload_process);
 
 router.get("/", (req, res) => {
   res.send("Hello ?");
@@ -70,4 +74,5 @@ router.get("/auth/google/failure", (req, res) => {
 router.get("/auth/facebook/failure", (req, res) => {
   res.send("Failed to authenticate..");
 });
+router.get("/api/getHistory", isUserAuthenticated, history.getHistory);
 export { router };

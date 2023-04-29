@@ -29,9 +29,10 @@ model Cv{
 }
 model History{
   id Int @id @default(autoincrement())
+  date String 
   des String
   inf String[]
-  linkDownload String[]
+  result String
 
   userId String
   user User @relation(fields:[userId],references: [userId],onDelete: Cascade)
